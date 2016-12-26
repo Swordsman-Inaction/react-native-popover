@@ -7,6 +7,7 @@ import {
   Animated,
   Text,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   View,
   Easing
 } from 'react-native';
@@ -336,7 +337,7 @@ var Popover = React.createClass({
     var {popoverOrigin, placement} = this.state;
     var extendedStyles = this._getExtendedStyles();
     var contentStyle = [styles.content, ...extendedStyles.content];
-    var arrowColor = StyleSheet.flatten(contentStyle).backgroundColor;
+    var arrowColor = 'white';
     var arrowColorStyle = this.getArrowColorStyle(arrowColor);
     var arrowDynamicStyle = this.getArrowDynamicStyle();
     var contentSizeAvailable = this.state.contentSize.width;
@@ -357,7 +358,9 @@ var Popover = React.createClass({
             }, ...extendedStyles.popover]}>
             <Animated.View style={arrowStyle}/>
             <Animated.View ref='content' onLayout={this.measureContent} style={contentStyle}>
-              {this.props.children}
+              <TouchableOpacity onPress={noop} activeOpacity={1}>
+                {this.props.children}
+              </TouchableOpacity>
             </Animated.View>
           </Animated.View>
         </View>
@@ -397,9 +400,6 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.8,
   },
   content: {
-    borderRadius: 3,
-    padding: 6,
-    backgroundColor: '#fff',
   },
   arrow: {
     position: 'absolute',
